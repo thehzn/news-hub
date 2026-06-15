@@ -71,7 +71,7 @@ const today = new Date().toLocaleDateString("en-IN", {
       </style>
        
           {error && <div >⚠ {error}</div>}
-{loading ?( <div>Loading tasks...</div>):(<div className="flex h-screen bg-gray-100">
+{loading ?( <div>Loading...</div>):(<div className="flex h-screen bg-gray-100">
 
  
   <aside className="w-64 bg-white border-r border-gray-200 p-4">
