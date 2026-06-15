@@ -26,7 +26,12 @@ if(existinguser){
     
   const token =await generateToken(user._id); 
  
-         res.status(201).cookie("token", token).json({
+         res.status(201).cookie('token', token, {
+  httpOnly: true,
+  secure: true,           // required for HTTPS
+  sameSite: 'none',       // required for cross-origin
+  maxAge: 24 * 60 * 60 * 1000 // 1 day
+}).json({
         message:"user registered succussfully" ,
         success:true,
         user: {
@@ -85,7 +90,12 @@ exports.userLogin = async (req, res) => {
 
     
     return res.status(200)
-      .cookie('token', token)
+      .cookie('token', token, {
+  httpOnly: true,
+  secure: true,           // required for HTTPS
+  sameSite: 'none',       // required for cross-origin
+  maxAge: 24 * 60 * 60 * 1000 // 1 day
+})
       .json({
         message: "User logged in successfully",
         success: true,
