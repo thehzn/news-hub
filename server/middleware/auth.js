@@ -4,7 +4,7 @@ exports.userAuthenticate = async(req,res,next)=>{
     console.log("--- Auth Middleware Started ---");
 
     try{
-    const {token} =req.cookies;
+    const token = req.cookies?.token || req.headers.authorization?.split(' ')[1];
     if(!token){
          return res.status(401).json({
         message:"unautherised user" ,

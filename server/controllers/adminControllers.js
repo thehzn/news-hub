@@ -99,6 +99,7 @@ exports.userLogin = async (req, res) => {
       .json({
         message: "User logged in successfully",
         success: true,
+        token,
         user,
       });
 

@@ -33,15 +33,16 @@ function Login() {
             // if(registeredUser && registeredUser.email===values.email && registeredUser.password===values.password){
 
             try{
-            const {data} = await axios.post("/admin/login", values
-                ,{
-                    withCredentials:true
-                }
-            );
+            // const {data} = await axios.post("/admin/login", values
+            //     ,{
+            //         withCredentials:true
+            //     }
+            // );
+            const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/admin/login`, values, {withCredentials: true})
 
             toast.success(data?.message || "Login successful!");
 
-           
+           localStorage.setItem('token',data.token)
               dispatch(login(data.user));
              navigate("/dashboard");
               
