@@ -60,10 +60,20 @@ const useAxios = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const instance = useMemo(() => axios.create({
+//   const instance = useMemo(() => axios.create({
+//     baseURL: import.meta.env.VITE_API_URL || "http://localhost:4000/api",
+//     withCredentials: true
+//   }), []);
+const instance = useMemo(() => {
+  const token = localStorage.getItem('token');
+  return axios.create({
     baseURL: import.meta.env.VITE_API_URL || "http://localhost:4000/api",
-    withCredentials: true
-  }), []);
+    withCredentials: true,
+    headers: {
+      Authorization: token ? `Bearer ${token}` : ''
+    }
+  });
+}, []);
 
   useEffect(() => {
     // Request interceptor - attach token from localStorage
