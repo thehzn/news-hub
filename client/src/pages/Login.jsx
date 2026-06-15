@@ -26,36 +26,24 @@ function Login() {
             email:Yup.string().email("invalid email").required("email is required"),
             password:Yup.string().min(6,"password must contain minimum of 6 characters").max(12,"password must be at most 12 characters")
         }),
-        onSubmit:async(values)=>{
-          console.log("Submit clicked!")
-            console.log(values);
-            // const registeredUser=JSON.parse(localStorage.getItem('registeredUser'));
-            // if(registeredUser && registeredUser.email===values.email && registeredUser.password===values.password){
-
-            try{
-            // const {data} = await axios.post("/admin/login", values
-            //     ,{
-            //         withCredentials:true
-            //     }
-            // );
-            const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/admin/login`, values, {withCredentials: true})
-
-            toast.success(data?.message || "Login successful!");
-
-           localStorage.setItem('token',data.token)
-              dispatch(login(data.user));
-             navigate("/dashboard");
-              
-           
-
-
-        }
-        catch(error){
-          const errorMessage = error?.response?.data?.message || "Invalid email or password";
-    toast.error(errorMessage);
-        }
-   
-    }})
+       onSubmit: async(values) => {
+  console.log("Submit clicked!")
+  console.log(values)
+  try {
+    const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/admin/login`, values, {withCredentials: true})
+    if(data.success){
+      toast.success(data?.message || "Login successful!")
+      console.log("response data:", data)
+      localStorage.setItem('token', data.token)
+      dispatch(login(data.user))
+      navigate("/dashboard")
+    }
+  }
+  catch(error){
+    const errorMessage = error?.response?.data?.message || "Invalid email or password"
+    toast.error(errorMessage)
+  }
+}})
   return (
    <div  style={{ width:"500px",margin:' 50px auto',height:'350px', backgroundColor: "#f8f9fa",   // light gray background
     borderRadius: "12px",boxSizing:'border-box',padding:'0px 20px',
