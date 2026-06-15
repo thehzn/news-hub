@@ -194,7 +194,7 @@ exports.getStats=async(req,res)=>{
     const [published,draft,in_review,scheduled]=await Promise.all([
       News.countDocuments({author:adminId,status:'published'}),
       News.countDocuments({author:adminId,status:'draft'}),
-      News.countDocuments({author:adminId,status:'in-review'}),
+      News.countDocuments({author:adminId,status:'in_review'}),
       News.countDocuments({author:adminId,status:'scheduled'}),
 
     ]);
